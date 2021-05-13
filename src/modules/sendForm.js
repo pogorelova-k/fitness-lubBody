@@ -21,21 +21,30 @@ const sendForm = () => {
     });
 
     forms.forEach(form => {
-        const inputs = form.querySelectorAll('input');
+        const inputs = form.querySelectorAll('input'),
+            inputCheck = document.querySelector('input[type="checkbox"]'),
+            formBtn = form.querySelector('.form-btn');
+
+            // запрещаем отправку если не поставлена галочка
+            inputCheck.addEventListener('change', () => {
+                if (!inputCheck.checked) {
+                    formBtn.disabled = true;
+                } else {
+                    formBtn.removeAttribute('disabled');
+                }
+            })
+            
+
 
         // отправка формы
         form.addEventListener('submit', event => {
             const formContent = form.innerHTML,
             // получаем значение из всех инпутов формы у которых есть атрибут name
                 formData = new FormData(form),
-                body = {},
-                inputCheck = document.querySelector('input[type="checkbox"]');
-            
-            if (!inputCheck.checked) {
-                
-            }
+                body = {};
 
             event.preventDefault();
+            
             form.textContent = '';
 
             if (form.id === 'card_order') {
