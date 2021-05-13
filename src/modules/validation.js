@@ -5,6 +5,8 @@ const validator = () => {
 
     inputs.forEach(input => {
         input.addEventListener('input', () => {
+            const form = input.closest('form'),
+                formBtn = form.querySelector('.form-btn');
 
             // Валидация поля Ваше имя
             if (input.getAttribute('name') === 'user_name') {
@@ -25,6 +27,14 @@ const validator = () => {
             if (input.getAttribute('name') === 'promo') {
                 // разрешен только ввод кириллицы в любом регистре и цифр
                 input.value = input.value.replace((/[^а-яА-Я\d]/gi), '');
+            }
+
+            // валидация номера, запрет отправки формы
+            if (input.value.length < 18) {
+                console.log(input.value.length);
+                formBtn.disabled = true;
+            } else {
+                formBtn.removeAttribute('disabled');
             }
         });
     });

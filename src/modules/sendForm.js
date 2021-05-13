@@ -87,7 +87,6 @@ const sendForm = () => {
                 .finally(deleteInputFormValue);
         });
     });
-
 };
 
 export default sendForm;
