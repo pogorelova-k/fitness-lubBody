@@ -21,11 +21,13 @@ const popup = () => {
             callbackForm.style.display = 'none';
         }
 
-        if  (target.closest('.fixed-gift')) {
+        if  (target.closest('.fixed-gift') && giftForm) {
             giftForm.style.display = 'block';
             gift.style.display = 'none';
-        } else if (!target.closest('.form-content')) {
+        } else if (!target.closest('.form-content') && giftForm) {
             giftForm.style.display = 'none';
+        } else {
+            return;
         }
     });
 

@@ -9,7 +9,7 @@ const sendForm = () => {
         </div>`,
         forms = document.querySelectorAll('form'),
         statusMessage = document.createElement('div');
-        // statusMessage.style.cssText = 'font-size: 2rem; color: #fff; padding-top: 40px;';
+        statusMessage.style.cssText = 'font-size: 2rem; padding-top: 40px;';
 
     // функция отправки данных
     const postData = body => fetch(url, {
@@ -34,10 +34,10 @@ const sendForm = () => {
             form.textContent = '';
 
             if (form.id === 'card_order') {
-                statusMessage.style.cssText = 'font-size: 2rem; color: #000; padding-top: 40px;';
+                statusMessage.style.cssText += 'color: #000;';
                 
             } else {
-                statusMessage.style.cssText = 'font-size: 2rem; color: #fff; padding-top: 40px;';
+                statusMessage.style.cssText += 'color: #fff;';
             }
 
             form.append(statusMessage);
