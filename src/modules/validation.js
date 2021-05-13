@@ -9,7 +9,7 @@ const validator = () => {
                 formBtn = form.querySelector('.form-btn');
 
             // Валидация поля Ваше имя
-            if (input.getAttribute('name') === 'user_name') {
+            if (input.getAttribute('name') === 'name') {
                 if (input.value.length < 51) {
                     // разрешен только ввод кириллицы в любом регистре и пробела
                     input.value = input.value.replace((/[^а-яА-Я-\s]/gi), '');
@@ -31,7 +31,6 @@ const validator = () => {
 
             // валидация номера, запрет отправки формы
             if (input.value.length < 18) {
-                console.log(input.value.length);
                 formBtn.disabled = true;
             } else {
                 formBtn.removeAttribute('disabled');

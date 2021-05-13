@@ -28,7 +28,12 @@ const sendForm = () => {
             const formContent = form.innerHTML,
             // получаем значение из всех инпутов формы у которых есть атрибут name
                 formData = new FormData(form),
-                body = {};
+                body = {},
+                inputCheck = document.querySelector('input[type="checkbox"]');
+            
+            if (!inputCheck.checked) {
+                
+            }
 
             event.preventDefault();
             form.textContent = '';
