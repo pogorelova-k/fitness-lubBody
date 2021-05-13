@@ -38,7 +38,7 @@ eval("\nmodule.exports = function () {\n\treturn /[\\u001b\\u009b][[()#;?]*(?:[0
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_menu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/menu */ \"./src/modules/menu.js\");\n'strict';\n\n\n(0,_modules_menu__WEBPACK_IMPORTED_MODULE_0__.default)();\n\n//# sourceURL=webpack://fitnessClubBody/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_menu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/menu */ \"./src/modules/menu.js\");\n/* harmony import */ var _modules_popup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/popup */ \"./src/modules/popup.js\");\n'strict';\n\n\n\n(0,_modules_menu__WEBPACK_IMPORTED_MODULE_0__.default)();\n(0,_modules_popup__WEBPACK_IMPORTED_MODULE_1__.default)();\n\n//# sourceURL=webpack://fitnessClubBody/./src/index.js?");
 
 /***/ }),
 
@@ -50,6 +50,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mod
 
 "use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nvar menu = function menu() {\n  var clubsList = document.querySelector('.clubs-list'); // Выбрать клуб-выпадающее меню\n\n  document.addEventListener('click', function (event) {\n    var target = event.target.closest('.club-select');\n\n    if (target) {\n      clubsList.querySelector('ul').classList.toggle('show-club-list');\n    } else {\n      clubsList.querySelector('ul').classList.remove('show-club-list');\n    }\n  });\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (menu);\n\n//# sourceURL=webpack://fitnessClubBody/./src/modules/menu.js?");
+
+/***/ }),
+
+/***/ "./src/modules/popup.js":
+/*!******************************!*\
+  !*** ./src/modules/popup.js ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nvar popup = function popup() {\n  var freeVisitForm = document.getElementById('free_visit_form'),\n      callbackForm = document.getElementById('callback_form'),\n      gift = document.querySelector('.fixed-gift'),\n      giftForm = document.getElementById('gift');\n  document.addEventListener('click', function (event) {\n    var target = event.target; // модальное окно - записаться на бесплатный визит\n\n    if (target.closest('.open-popup')) {\n      freeVisitForm.style.display = 'block';\n    } else if (!target.closest('.form-content')) {\n      freeVisitForm.style.display = 'none';\n    } // модальное окно - перезвоните мне\n\n\n    if (target.closest('.callback-btn')) {\n      callbackForm.style.display = 'block';\n    } else if (!target.closest('.form-content')) {\n      callbackForm.style.display = 'none';\n    }\n\n    if (target.closest('.fixed-gift')) {\n      giftForm.style.display = 'block';\n      gift.style.display = 'none';\n    } else if (!target.closest('.form-content')) {\n      giftForm.style.display = 'none';\n    }\n  });\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (popup);\n\n//# sourceURL=webpack://fitnessClubBody/./src/modules/popup.js?");
 
 /***/ }),
 
