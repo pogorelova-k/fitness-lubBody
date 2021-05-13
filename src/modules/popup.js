@@ -15,7 +15,7 @@ const popup = () => {
         }
 
         // модальное окно - перезвоните мне
-        if (target.closest('.callback-btn')) {
+        if (target.closest('header .callback-btn')) {
             callbackForm.style.display = 'block';
         }   else if (!target.closest('.form-content')) {
             callbackForm.style.display = 'none';
