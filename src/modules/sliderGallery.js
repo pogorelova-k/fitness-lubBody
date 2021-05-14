@@ -51,24 +51,14 @@ const sliderGallery = () => {
 
         const target = event.target;
 
-        if (!target.matches('.portfolio-btn, .dot')) {
-            return;
-        }
-
         prevSlide(slide, currentSlide, 'active');
         prevSlide(dot, currentSlide, 'dot-active');
 
-        if (target.matches('.gallery-next')) {
+        if (target.closest('.prev')) {
             currentSlide++;
-        } else if (target.matches('.gallery-prev')) {
+        } else if (target.closest('.next')) {
             currentSlide--;
-        } else if (target.matches('.dot')) {
-            dot.forEach((elem, index) => {
-                if (elem === target) {
-                    currentSlide = index;
-                }
-            });
-        }
+        } 
 
         if (currentSlide >= slide.length) {
             currentSlide = 0;
@@ -83,8 +73,7 @@ const sliderGallery = () => {
     });
 
     slider.addEventListener('mouseover', event => {
-        if (event.target.matches('.gallery-btn') ||
-        event.target.matches('.dot')) {
+        if (event.target.matches('.gallery-btn')) {
             stopSlide();
         }
     });
