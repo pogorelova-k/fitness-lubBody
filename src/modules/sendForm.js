@@ -1,7 +1,9 @@
 const sendForm = () => {
     const url = './server.php',
-        erorrMessage = 'Что-то пошло не так...',
-        successMesage = 'Спасибо! Мы скоро с вами свяжемся!',
+        erorrMessage = `<h4>Извините</h4>
+            <p>Что-то пошло не так...</p><button class="btn close-btn">OK</button>`,
+        successMesage = `<h4>Спасибо!</h4>
+            <p>Ваша заявка отправлена. <br> Мы свяжемся с вами в ближайшее время.</p><button class="btn close-btn">OK</button>`,
         loadMessage = `<div class="sk-flow sk-center">
             <div class="sk-flow-dot"></div>
             <div class="sk-flow-dot"></div>
@@ -9,7 +11,6 @@ const sendForm = () => {
         </div>`,
         forms = document.querySelectorAll('form'),
         statusMessage = document.createElement('div');
-        statusMessage.style.cssText = 'font-size: 2rem; padding-top: 40px;';
 
     // функция отправки данных
     const postData = body => fetch(url, {
@@ -21,9 +22,9 @@ const sendForm = () => {
     });
 
     forms.forEach(form => {
-        const inputs = form.querySelectorAll('input'),
-            inputCheck = form.querySelector('input[type="checkbox"]'),
-            formBtn = form.querySelector('.form-btn');
+        const inputs = form.querySelectorAll('input');
+            // inputCheck = form.querySelector('input[type="checkbox"]'),
+            // formBtn = form.querySelector('.form-btn');
 
         //! доработать вывод сообщения если нет галочки
         // formBtn.addEventListener('click', () => {
@@ -38,8 +39,6 @@ const sendForm = () => {
             // получаем значение из всех инпутов формы у которых есть атрибут name
                 formData = new FormData(form),
                 body = {};
-
-            
 
             event.preventDefault();
             
@@ -60,23 +59,31 @@ const sendForm = () => {
                 body[key] = val;
             });
 
-            // функция для отображения сообщения пользователю
-            const outputData = (time = 3000) => {
-                statusMessage.textContent = successMesage;
-                setTimeout(() => {
-                    statusMessage.textContent = '';
-                    form.innerHTML = formContent;
-                }, time);
+            // модальное окно после отправки формы
+            const modalThanks = (message) => {
+                const thanks = document.getElementById('thanks');
+
+                thanks.querySelector('.form-content').innerHTML = message;
+                thanks.style.display = 'block';
+                statusMessage.textContent = ''; 
+                thanks.addEventListener('click', event => {
+                    const target = event.target;
+
+                    // модальное окно thanks после отправки формы
+                    if (!target.closest('.form-content') || target.closest('.close-btn')) {
+                        thanks.style.display = 'none';
+                        form.innerHTML = formContent;
+                    }
+                });
             };
 
+            // функция для отображения сообщения пользователю об успешной отправки
+            const outputData = () => modalThanks(successMesage);
+
             // функция для отображения ошибки пользователю и в консоль
-            const errorData = (error, time = 3000) => {
-                statusMessage.textContent = erorrMessage;
+            const errorData = (error) => {
+                modalThanks(erorrMessage);
                 console.error(error);
-                setTimeout(() => {
-                    statusMessage.textContent = '';
-                    form.innerHTML = formContent;
-                }, time);
             };
 
             // функция для очищения полей
@@ -95,7 +102,9 @@ const sendForm = () => {
                         throw new Error('status network not 200');
                     }
                     outputData();
+                    // modalThanks();
                 })
+                // .catch(modalThanks(erorrMessage))
                 .catch(error => errorData(error))
                 .finally(deleteInputFormValue);
         });
