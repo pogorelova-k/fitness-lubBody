@@ -22,19 +22,15 @@ const sendForm = () => {
 
     forms.forEach(form => {
         const inputs = form.querySelectorAll('input'),
-            inputCheck = document.querySelector('input[type="checkbox"]'),
+            inputCheck = form.querySelector('input[type="checkbox"]'),
             formBtn = form.querySelector('.form-btn');
 
-            // запрещаем отправку если не поставлена галочка
-            inputCheck.addEventListener('change', () => {
-                if (!inputCheck.checked) {
-                    formBtn.disabled = true;
-                } else {
-                    formBtn.removeAttribute('disabled');
-                }
-            })
-            
-
+        //! доработать вывод сообщения если нет галочки
+        // formBtn.addEventListener('click', () => {
+        //     if (inputCheck.checked === false) {
+        //         inputCheck.setCustomValidity('Необходимо дать согласие на обработку ваших данных');
+        //     }
+        // })
 
         // отправка формы
         form.addEventListener('submit', event => {
@@ -42,6 +38,8 @@ const sendForm = () => {
             // получаем значение из всех инпутов формы у которых есть атрибут name
                 formData = new FormData(form),
                 body = {};
+
+            
 
             event.preventDefault();
             
@@ -77,6 +75,7 @@ const sendForm = () => {
                 console.error(error);
                 setTimeout(() => {
                     statusMessage.textContent = '';
+                    form.innerHTML = formContent;
                 }, time);
             };
 

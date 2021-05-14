@@ -28,13 +28,6 @@ const validator = () => {
                 // разрешен только ввод кириллицы в любом регистре и цифр
                 input.value = input.value.replace((/[^а-яА-Я\d]/gi), '');
             }
-
-            // валидация номера, запрет отправки формы
-            if (input.value.length < 18) {
-                formBtn.disabled = true;
-            } else {
-                formBtn.removeAttribute('disabled');
-            }
         });
     });
 };
