@@ -61,7 +61,6 @@ class SliderCarousel {
                         this.addStyle();
                     }
                 }
-                        console.log(this.options.widthSlide);
             } else {
                 this.slidesShow = slidesShowDefault;
                 this.options.widthSlide = Math.floor(this.widthBlock / this.slidesShow);
