@@ -1,17 +1,19 @@
 const sliderGallery = () => {
     const slider = document.querySelector('.gallery-slider'),	
         slide = slider.querySelectorAll('.slide'),
-        dots = document.querySelector('.portfolio-dots');
+        dots = document.querySelector('.slider-dots');
 
     //Текущий номер слайда
     let currentSlide = 0,
         interval;
 
     slide.forEach(() => {
-        const li = document.createElement('li');
+        const li = document.createElement('li'),
+            btn = document.createElement('button');
         li.classList.add('dot');
+        li.append(btn);
         dots.append(li);
-        dots.firstChild.classList.add('dot-active');
+        dots.firstChild.classList.add('slick-active');
     });
 
     const	dot = document.querySelectorAll('.dot');
@@ -27,13 +29,13 @@ const sliderGallery = () => {
     // автоматическое перелистывание слайдера autoPlay
     const autoPlaySlide = () => {
         prevSlide(slide, currentSlide, 'active');
-        // prevSlide(dot, currentSlide, 'dot-active');
+        prevSlide(dot, currentSlide, 'slick-active');
         currentSlide++;
         if (currentSlide >= slide.length) {
             currentSlide = 0;
         }
         nextSlide(slide, currentSlide, 'active');
-        // nextSlide(dot, currentSlide, 'dot-active');
+        nextSlide(dot, currentSlide, 'slick-active');
     };
 
     // Запуск слайдера
@@ -51,14 +53,24 @@ const sliderGallery = () => {
 
         const target = event.target;
 
-        prevSlide(slide, currentSlide, 'active');
-        prevSlide(dot, currentSlide, 'dot-active');
+        if (!target.matches('.gallery-arrow, .dot')) {
+            return;
+        }
 
-        if (target.closest('.prev')) {
+        prevSlide(slide, currentSlide, 'active');
+        prevSlide(dot, currentSlide, 'slick-active');
+
+        if (target.matches('.gallery-next')) {
             currentSlide++;
-        } else if (target.closest('.next')) {
+        } else if (target.matches('.gallery-prev')) {
             currentSlide--;
-        } 
+        } else if (target.matches('.dot')) {
+            dot.forEach((elem, index) => {
+                if (elem === target) {
+                    currentSlide = index;
+                }
+            });
+        }
 
         if (currentSlide >= slide.length) {
             currentSlide = 0;
@@ -69,17 +81,18 @@ const sliderGallery = () => {
         }
 
         nextSlide(slide, currentSlide, 'active');
-        nextSlide(dot, currentSlide, 'dot-active');
+        nextSlide(dot, currentSlide, 'slick-active');
     });
 
     slider.addEventListener('mouseover', event => {
-        if (event.target.matches('.gallery-btn')) {
+        if (event.target.matches('.gallery-arrow') ||
+        event.target.matches('.dot')) {
             stopSlide();
         }
     });
 
     slider.addEventListener('mouseout', event => {
-        if (event.target.matches('.gallery-btn') ||
+        if (event.target.matches('.gallery-arrow') ||
         event.target.matches('.dot')) {
             startSlide();
         }
