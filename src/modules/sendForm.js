@@ -102,7 +102,6 @@ const sendForm = () => {
                         throw new Error('status network not 200');
                     }
                     outputData();
-                    // modalThanks();
                 })
                 // .catch(modalThanks(erorrMessage))
                 .catch(error => errorData(error))

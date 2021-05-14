@@ -5,8 +5,7 @@ const validator = () => {
 
     inputs.forEach(input => {
         input.addEventListener('input', () => {
-            const form = input.closest('form'),
-                formBtn = form.querySelector('.form-btn');
+            const form = input.closest('form');
 
             // Валидация поля Ваше имя
             if (input.getAttribute('name') === 'name') {
