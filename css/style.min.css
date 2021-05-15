@@ -45,7 +45,7 @@ abbr,address,article,aside,audio,b,blockquote,body,body div,caption,cite,code,dd
     }
 }
 
-.services-wrapper .slider-arrow {
+/* .services-wrapper .slider-arrow {
     display: block;
     width: 36px;
     height: 37px;
@@ -59,26 +59,26 @@ abbr,address,article,aside,audio,b,blockquote,body,body div,caption,cite,code,dd
     margin-top: -18px;
     z-index: 200;
     cursor: pointer;
-}
-
+} */
+/* 
 .services-slider .slide {
     min-width: 210px;
-}
+} */
 
-.services-wrapper .slider-arrow.prev {
+/* .services-wrapper .slider-arrow.prev {
     left: 12px;
     top: 43%;
-} 
+}  */
 
-.wrapper {
+/* .wrapper {
     padding-left: 0;
     padding-right: 0;
-}
+} */
 
-.services-wrapper .slider-arrow.next {
+/* .services-wrapper .slider-arrow.next {
     right: 20px;
     top: 43%;
-}
+} */
 
 .gallery-slider .slide {
     display: none;
@@ -95,4 +95,14 @@ abbr,address,article,aside,audio,b,blockquote,body,body div,caption,cite,code,dd
 
 .slider-dots li {
     cursor: pointer;
+}
+
+.fa-chevron-left {
+    margin-left: -5px;
+    margin-top: -5px;
+}
+
+.fa-chevron-right {
+    margin-left: -3px;
+    margin-top: -5px;
 }

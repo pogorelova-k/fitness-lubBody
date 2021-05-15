@@ -12,26 +12,6 @@ import calculate from "./modules/calc";
 const carousel = new SliderCarousel({
     main: '.services-wrapper',
     wrap: '.services-slider',
-    slide: '.services-slide',
-    slidesShow: 5,
-    next: '.carousel-right',
-    prev: '.carousel-left',
-    infinite: false,
-    responsive: [{
-        breakpoint: 1280,
-        slidesShow: 4
-    },{
-        breakpoint: 1024,
-        slidesShow: 3
-    },
-    {
-        breakpoint: 768,
-        slidesShow: 2
-    },
-    {
-        breakpoint: 576,
-        slidesShow: 1
-    }],
 });
 
 menu();
