@@ -3,11 +3,15 @@ const calculate = () => {
         promoCod = 'ТЕЛО2019',
         totalPrice = document.getElementById('price-total');
 
-    promoInput.addEventListener('input', () => {
-        if (promoInput.value.toUpperCase() === promoCod.toUpperCase() ) {
-            totalPrice.textContent = Math.ceil(Number(totalPrice.textContent) * 0.7);
-        }
-    });
+    if (promoInput) {
+        promoInput.addEventListener('input', () => {
+            if (promoInput.value.toUpperCase() === promoCod.toUpperCase() ) {
+                totalPrice.textContent = Math.ceil(Number(totalPrice.textContent) * 0.7);
+            }
+        });
+    }
+
+
 };
 
 export default calculate;
