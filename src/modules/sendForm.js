@@ -21,18 +21,35 @@ const sendForm = () => {
         body: JSON.stringify(body) // данные из инпутов в формате json
     });
 
-    forms.forEach(form => {
-        const inputs = form.querySelectorAll('input');
-        
-            // inputCheck = form.querySelector('input[type="checkbox"]'),
-            // formBtn = form.querySelector('.form-btn');
+    
 
-        // доработать вывод сообщения если нет галочки
-        // formBtn.addEventListener('click', () => {
-        //     if (inputCheck.checked) {
-        //         inputCheck.setCustomValidity('Необходимо дать согласие на обработку ваших данных');
-        //     }
-        // })
+    forms.forEach(form => {
+        const inputs = form.querySelectorAll('input'),
+        inputCheck = form.querySelectorAll('input[type="checkbox"]'),
+        formBtn = form.querySelector('.form-btn'),
+        spanAllert = document.createElement('span');
+
+        spanAllert.classList.add('spanAllert');
+        spanAllert.textContent = 'Обязательное поле';
+
+        // без required
+        inputCheck.forEach(input => {
+            formBtn.disabled = true;
+            input.parentNode.appendChild(spanAllert);
+            input.addEventListener('input', () => {
+                if (!input.checked) {
+                    formBtn.disabled = true;
+                    // input.focus();
+                    spanAllert.style.display = 'block';
+                    setTimeout(() => {
+                        spanAllert.style.display = 'none';
+                    }, 2000);
+                } else {
+                    formBtn.removeAttribute('disabled');
+                    spanAllert.style.display = 'none';
+                }
+            })
+        });
 
         // отправка формы
         form.addEventListener('submit', event => {
@@ -40,10 +57,23 @@ const sendForm = () => {
             // получаем значение из всех инпутов формы у которых есть атрибут name
                 formData = new FormData(form),
                 body = {},
-                formBtn = form.querySelector('.form-btn');
+                formBtn = form.querySelector('.form-btn'),
+                inputCheck = form.querySelector('input[type="checkbox"]');
+                // console.log('inputCheck: ', inputCheck.checked);
 
             event.preventDefault();
-            
+
+
+            // inputCheck.forEach(input => {
+            //     if (!input.checked) {
+            //         // setTimeout(() => {
+            //             input.focus();
+            //             input.setCustomValidity('');
+            //             console.log(1);
+            //         // }, 1000);
+            //     }
+            // });
+
             form.textContent = '';
 
             if (form.id === 'card_order') {
