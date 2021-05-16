@@ -53,10 +53,10 @@ const sliderGallery = () => {
 
         const target = event.target;
 
-        if (!target.matches('.gallery-arrow, .dot')) {
+        if (!target.matches('.gallery-arrow, .dot, .dot button')) {
             return;
         }
-
+        
         prevSlide(slide, currentSlide, 'active');
         prevSlide(dot, currentSlide, 'slick-active');
 
@@ -64,9 +64,9 @@ const sliderGallery = () => {
             currentSlide++;
         } else if (target.matches('.gallery-prev')) {
             currentSlide--;
-        } else if (target.matches('.dot')) {
+        } else if (target.closest('.dot')) {
             dot.forEach((elem, index) => {
-                if (elem === target) {
+                if (elem === target.closest('.dot')) {
                     currentSlide = index;
                 }
             });
@@ -95,6 +95,17 @@ const sliderGallery = () => {
         if (event.target.matches('.gallery-arrow') ||
         event.target.matches('.dot')) {
             startSlide();
+        }
+    });
+
+    // Кнопки для мобильных приложений
+    window.addEventListener('resize', () => {
+        const widthWindow = document.documentElement.offsetWidth,
+            prev = document.querySelector('.slider-arrow prev'),
+            next = document.querySelector('.slider-arrow next');
+        if (widthWindow < 751) {
+            
+            
         }
     });
 
