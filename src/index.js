@@ -8,6 +8,7 @@ import validator from "./modules/validation";
 import SliderCarousel from './modules/sliderCarousel';
 import sliderGallery from "./modules/sliderGallery";
 import calculate from "./modules/calc";
+import scroll from "./modules/scroll";
 
 const carousel = new SliderCarousel({
     main: '.services-wrapper',
@@ -37,3 +38,4 @@ mainSlider();
 carousel.init();
 sliderGallery();
 calculate();
+scroll();
