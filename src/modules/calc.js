@@ -4,22 +4,15 @@ const calculate = () => {
         totalPrice = document.getElementById('price-total'),
         cardOrder = document.getElementById('card_order'),
         times = cardOrder.querySelector('.time'),
-        inputsCard = cardOrder.querySelectorAll('input[type="radio"]');
-
-    if (promoInput) {
-        promoInput.addEventListener('input', () => {
-            if (promoInput.value.toUpperCase() === promoCod.toUpperCase() ) {
-                totalPrice.textContent = Math.ceil(Number(totalPrice.textContent) * 0.7);
-            }
-        });
-    }
+        inputs = cardOrder.querySelectorAll('input');
+    let selectClub = 'mozaika';
 
     if (totalPrice) {
-        let selectClub = 'mozaika';
-        const inputsTime = times.querySelectorAll('input');
+        for (let i = 0; i < 7; i++) {
+            const input = inputs[i],
+                inputsTime = times.querySelectorAll('input');
 
-        inputsCard.forEach(input => {
-            input.addEventListener('change', () => {
+            input.addEventListener('input', () => {
                 // отслеживаем какой клуб выбран
                 if (input.value === 'mozaika') {
                     selectClub = 'mozaika'
@@ -53,9 +46,13 @@ const calculate = () => {
                         }
                     }
                 });
+
+                // проверяем промокод и применяем скидку 30%
+                if (promoInput.value.toUpperCase() === promoCod.toUpperCase() ) {
+                    totalPrice.textContent = Math.ceil(Number(totalPrice.textContent) * 0.7);
+                }
             });
-        })
-        
+        }
     }
 };
 

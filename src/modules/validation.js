@@ -5,10 +5,18 @@ const validator = () => {
 
     inputs.forEach(input => {
         input.addEventListener('input', () => {
-            const form = input.closest('form');
+            const form = input.closest('form'),
+                formBtn = form.querySelector('.form-btn');
 
             // Валидация поля Ваше имя
             if (input.getAttribute('name') === 'name') {
+                // отменяется отправка формы, если имя меньше 2 букв
+                if (input.value.length < 2) {
+                    formBtn.disabled = true;
+                } else {
+                    formBtn.removeAttribute('disabled');
+                }
+
                 if (input.value.length < 51) {
                     // разрешен только ввод кириллицы в любом регистре и пробела
                     input.value = input.value.replace((/[^а-яА-Я-\s]/gi), '');
@@ -26,6 +34,14 @@ const validator = () => {
             if (input.getAttribute('name') === 'promo') {
                 // разрешен только ввод кириллицы в любом регистре и цифр
                 input.value = input.value.replace((/[^а-яА-Я\d]/gi), '');
+            }
+
+            if (input.getAttribute('name') === 'phone') {
+                if (input.value.length < 18) {
+                    formBtn.disabled = true;
+                } else {
+                    formBtn.removeAttribute('disabled');
+                }
             }
         });
     });

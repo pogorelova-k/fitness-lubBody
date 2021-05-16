@@ -21,14 +21,20 @@ const popup = () => {
             callbackForm.style.display = 'none';
         }
 
-        if  (target.closest('.fixed-gift') && giftForm) {
-            giftForm.style.display = 'block';
-            gift.style.display = 'none';
-        } else if (!target.closest('.form-content') && giftForm) {
-            giftForm.style.display = 'none';
-        } else {
-            return;
+        // модальное окно - Подарок
+        if (giftForm) {
+            if  (target.closest('.fixed-gift')) {
+                giftForm.style.display = 'block';
+                gift.style.display = 'none';
+            } else if (target.closest('.close-form') 
+                || target.closest('.close-btn')
+                || !target.closest('.form-content')) {
+                giftForm.style.display = 'none';
+            } else {
+                return;
+            }
         }
+        
     });
 
 };

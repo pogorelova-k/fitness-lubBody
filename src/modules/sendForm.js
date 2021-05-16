@@ -23,12 +23,13 @@ const sendForm = () => {
 
     forms.forEach(form => {
         const inputs = form.querySelectorAll('input');
+        
             // inputCheck = form.querySelector('input[type="checkbox"]'),
             // formBtn = form.querySelector('.form-btn');
 
-        //! доработать вывод сообщения если нет галочки
+        // доработать вывод сообщения если нет галочки
         // formBtn.addEventListener('click', () => {
-        //     if (inputCheck.checked === false) {
+        //     if (inputCheck.checked) {
         //         inputCheck.setCustomValidity('Необходимо дать согласие на обработку ваших данных');
         //     }
         // })
@@ -38,7 +39,8 @@ const sendForm = () => {
             const formContent = form.innerHTML,
             // получаем значение из всех инпутов формы у которых есть атрибут name
                 formData = new FormData(form),
-                body = {};
+                body = {},
+                formBtn = form.querySelector('.form-btn');
 
             event.preventDefault();
             
