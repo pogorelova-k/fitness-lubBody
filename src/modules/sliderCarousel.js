@@ -6,7 +6,8 @@ class SliderCarousel{
         prev,
         infinity = false,
         position = 0,
-        slidesToShow = 5
+        slidesToShow = 5,
+        responsive = [],
     }) {
         if(!main || !wrap){
             console.warn('slider-carousel: Необходимо 2 свойства, "main" и "wrap"!');
@@ -22,6 +23,7 @@ class SliderCarousel{
             infinity,
             widthSlide: Math.floor(100 / this.slidesToShow)
         };
+        this.responsive = responsive;
     }
 
     init() {
@@ -34,6 +36,36 @@ class SliderCarousel{
             this.addArrow();
             this.controlSlider();
         }
+
+        this.responseInit();
+    }
+
+    responseInit() {
+        const slidesShowDefault = this.slidesToShow,
+            allResponse = this.responsive.map(item => item.breakpoint),
+            maxResponse = Math.max(...allResponse);
+
+        const checkResponse = () => {
+            const widthWindow = document.documentElement.clientWidth;
+
+            if (widthWindow < maxResponse) {
+                for (let i = 0; i < allResponse.length; i++) {
+                    if (widthWindow < allResponse[i]) {
+                        this.slidesToShow = this.responsive[i].slidesShow;
+                        this.options.widthSlide = Math.floor(100 / this.slidesToShow);
+                        this.addStyle();
+                    }
+                }
+            } else {
+                this.slidesToShow = slidesShowDefault;
+                this.options.widthSlide = Math.floor(100 / this.slidesToShow);
+                this.addStyle();
+            }
+        };
+
+        checkResponse();
+
+        window.addEventListener('resize', checkResponse);
     }
 
     addGloClass() {
