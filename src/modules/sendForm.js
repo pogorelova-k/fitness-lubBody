@@ -24,72 +24,22 @@ const sendForm = () => {
     
 
     forms.forEach(form => {
-        const inputs = form.querySelectorAll('input'),
-        inputCheck = form.querySelectorAll('input[type="checkbox"]'),
-        formBtn = form.querySelector('.form-btn'),
-        spanAllert = document.createElement('span');
-
-        spanAllert.classList.add('spanAllert');
-        spanAllert.textContent = 'Обязательное поле';
-
-        // без required
-        inputCheck.forEach(input => {
-            formBtn.disabled = true;
-            input.parentNode.appendChild(spanAllert);
-            input.addEventListener('input', () => {
-                if (!input.checked) {
-                    formBtn.disabled = true;
-                    // input.focus();
-                    spanAllert.style.display = 'block';
-                    setTimeout(() => {
-                        spanAllert.style.display = 'none';
-                    }, 2000);
-                } else {
-                    formBtn.removeAttribute('disabled');
-                    spanAllert.style.display = 'none';
-                }
-            })
-        });
-
+        const inputs = form.querySelectorAll('input');
+        let count = 0;
         // отправка формы
         form.addEventListener('submit', event => {
             const formContent = form.innerHTML,
             // получаем значение из всех инпутов формы у которых есть атрибут name
                 formData = new FormData(form),
                 body = {},
-                formBtn = form.querySelector('.form-btn'),
-                inputCheck = form.querySelector('input[type="checkbox"]');
-                // console.log('inputCheck: ', inputCheck.checked);
+                inputRadio = form.querySelectorAll('input[type="radio"]'),
+                inputCheck = form.querySelectorAll('input[type="checkbox"]'),
+
+                spanAllert = document.createElement('span');
 
             event.preventDefault();
-
-
-            // inputCheck.forEach(input => {
-            //     if (!input.checked) {
-            //         // setTimeout(() => {
-            //             input.focus();
-            //             input.setCustomValidity('');
-            //             console.log(1);
-            //         // }, 1000);
-            //     }
-            // });
-
-            form.textContent = '';
-
-            if (form.id === 'card_order') {
-                statusMessage.style.cssText += 'color: #000;';
-                
-            } else {
-                statusMessage.style.cssText += 'color: #fff;';
-            }
-
-            form.append(statusMessage);
-            statusMessage.innerHTML = loadMessage;
-
-            // данные из formData присваиваем body
-            formData.forEach((val, key) => {
-                body[key] = val;
-            });
+            spanAllert.classList.add('span-allert');
+            spanAllert.textContent = 'Обязательное поле';
 
             // модальное окно после отправки формы
             const modalThanks = (message) => {
@@ -128,16 +78,76 @@ const sendForm = () => {
                 });
             };
 
-            postData(body)
-                .then(response => {
-                    if (response.status !== 200) {
-                        throw new Error('status network not 200');
-                    }
-                    outputData();
-                })
-                // .catch(modalThanks(erorrMessage))
-                .catch(error => errorData(error))
-                .finally(deleteInputFormValue);
+            const submitForm = () => {
+                form.textContent = '';
+
+                if (form.id === 'card_order') {
+                    statusMessage.style.cssText += 'color: #000;';
+                    
+                } else {
+                    statusMessage.style.cssText += 'color: #fff;';
+                }
+
+                form.append(statusMessage);
+                statusMessage.innerHTML = loadMessage;
+
+                // данные из formData присваиваем body
+                formData.forEach((val, key) => {
+                    body[key] = val;
+                });
+
+                postData(body)
+                    .then(response => {
+                        if (response.status !== 200) {
+                            throw new Error('status network not 200');
+                        }
+                        outputData();
+                    })
+                    // .catch(modalThanks(erorrMessage))
+                    .catch(error => errorData(error))
+                    .finally(deleteInputFormValue);
+            };
+
+            const allert = input => {
+                input.nextSibling.appendChild(spanAllert);
+                spanAllert.style.display = 'block';
+                setTimeout(() => {
+                    spanAllert.style.display = 'none';
+                }, 2000);
+            }
+
+            const hideAllert = input => {
+                input.addEventListener('change', () => {
+                    spanAllert.style.display = 'none';
+                });
+            };
+
+            inputRadio.forEach(input => {
+                if (!input.checked) {
+                    count++;
+                }
+            });
+
+            if (count === 2) {
+                inputRadio.forEach(input => {
+                    spanAllert.textContent = 'Выберите клуб'
+                    allert(input);
+                    hideAllert(input);
+                });
+                count = 0;
+            } else if (count === 1) {
+                submitForm();
+                count = 0;
+            }
+
+            inputCheck.forEach(input => {
+                if (!input.checked) {
+                    allert(input);
+                    hideAllert(input);
+                } else {
+                    submitForm();
+                }
+            });
         });
     });
 };
