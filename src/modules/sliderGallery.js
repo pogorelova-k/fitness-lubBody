@@ -7,6 +7,7 @@ const sliderGallery = () => {
     let currentSlide = 0,
         interval;
 
+    // добавляем dots
     slide.forEach(() => {
         const li = document.createElement('li'),
             btn = document.createElement('button');
@@ -16,7 +17,7 @@ const sliderGallery = () => {
         dots.firstChild.classList.add('slick-active');
     });
 
-    const	dot = document.querySelectorAll('.dot');
+    const dot = document.querySelectorAll('.dot');
 
     const prevSlide = (elem, index, strClass) => {
         elem[index].classList.remove(strClass);
@@ -48,11 +49,13 @@ const sliderGallery = () => {
         clearInterval(interval);
     };
 
+    // клик по слайдеру
     slider.addEventListener('click', event => {
         event.preventDefault();
 
         const target = event.target;
 
+        //клик только по элементам премещения слайдов
         if (!target.matches('.gallery-arrow, .dot, .dot button')) {
             return;
         }
@@ -84,6 +87,7 @@ const sliderGallery = () => {
         nextSlide(dot, currentSlide, 'slick-active');
     });
 
+    // при наведении на слайдер
     slider.addEventListener('mouseover', event => {
         if (event.target.matches('.gallery-arrow') ||
         event.target.matches('.dot')) {
@@ -91,21 +95,11 @@ const sliderGallery = () => {
         }
     });
 
+    // наведение вне слайдера
     slider.addEventListener('mouseout', event => {
         if (event.target.matches('.gallery-arrow') ||
         event.target.matches('.dot')) {
             startSlide();
-        }
-    });
-
-    // Кнопки для мобильных приложений
-    window.addEventListener('resize', () => {
-        const widthWindow = document.documentElement.offsetWidth,
-            prev = document.querySelector('.slider-arrow prev'),
-            next = document.querySelector('.slider-arrow next');
-        if (widthWindow < 751) {
-            
-            
         }
     });
 

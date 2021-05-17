@@ -1,7 +1,6 @@
 // плавный скролл
 const scroll = () => {
     const scrollLinks = document.querySelectorAll(".scroll");
-    // console.log('scrollLinks: ', scrollLinks);
 
     for (const scrollLink of scrollLinks) {
         scrollLink.addEventListener("click", event => {

@@ -159,3 +159,7 @@ abbr,address,article,aside,audio,b,blockquote,body,body div,caption,cite,code,dd
     right: -150px;
     padding: 2px 0; 
 }
+
+.clubs-list a {
+    cursor: pointer;
+}

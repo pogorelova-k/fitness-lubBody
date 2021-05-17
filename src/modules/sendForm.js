@@ -26,7 +26,7 @@ const sendForm = () => {
     forms.forEach(form => {
         const inputs = form.querySelectorAll('input');
         let count = 0;
-        // отправка формы
+        // клик по кнопке в форме
         form.addEventListener('submit', event => {
             const formContent = form.innerHTML,
             // получаем значение из всех инпутов формы у которых есть атрибут name
@@ -34,7 +34,6 @@ const sendForm = () => {
                 body = {},
                 inputRadio = form.querySelectorAll('input[type="radio"]'),
                 inputCheck = form.querySelectorAll('input[type="checkbox"]'),
-
                 spanAllert = document.createElement('span');
 
             event.preventDefault();
@@ -78,6 +77,7 @@ const sendForm = () => {
                 });
             };
 
+            // отправка формы
             const submitForm = () => {
                 form.textContent = '';
 
@@ -108,6 +108,7 @@ const sendForm = () => {
                     .finally(deleteInputFormValue);
             };
 
+            // сообщение пользователюю для обязательных полей
             const allert = input => {
                 input.nextSibling.appendChild(spanAllert);
                 spanAllert.style.display = 'block';
@@ -116,18 +117,22 @@ const sendForm = () => {
                 }, 2000);
             }
 
+            // скрываем сообщение, если пользователь выбрал поле
             const hideAllert = input => {
                 input.addEventListener('change', () => {
                     spanAllert.style.display = 'none';
                 });
             };
 
+            // проверяем сколько radio не выбраны
             inputRadio.forEach(input => {
                 if (!input.checked) {
                     count++;
                 }
             });
 
+            // валидация обязательных полей для radio button
+            // если ок, то отправляем форму
             if (count === 2) {
                 inputRadio.forEach(input => {
                     spanAllert.textContent = 'Выберите клуб'
@@ -140,6 +145,8 @@ const sendForm = () => {
                 count = 0;
             }
 
+            // валидация обязательных полей для checkbox button
+            // если ок, то отправляем форму
             inputCheck.forEach(input => {
                 if (!input.checked) {
                     allert(input);

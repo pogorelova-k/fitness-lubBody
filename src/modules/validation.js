@@ -13,10 +13,7 @@ const validator = () => {
                 // отменяется отправка формы, если имя меньше 2 букв
                 if (input.value.length < 2) {
                     formBtn.disabled = true;
-                } 
-                // else {
-                //     formBtn.removeAttribute('disabled');
-                // }
+                }
 
                 if (input.value.length < 51) {
                     // разрешен только ввод кириллицы в любом регистре и пробела
@@ -37,13 +34,11 @@ const validator = () => {
                 input.value = input.value.replace((/[^а-яА-Я\d]/gi), '');
             }
 
+            // валидация поля телефон по длине
             if (input.getAttribute('name') === 'phone') {
                 if (input.value.length < 18) {
                     formBtn.disabled = true;
                 } 
-                // else {
-                //     formBtn.removeAttribute('disabled');
-                // }
             }
         });
     });

@@ -4,8 +4,7 @@ const menu = () => {
         menuButton = document.querySelector('.hidden-large'),
         menuList = document.querySelector('.hidden-small'),
         topMenu = document.querySelector('.top-menu'),
-        popupMenu = document.querySelector('.popup-menu'),
-        topUp = document.getElementById('totop');
+        popupMenu = document.querySelector('.popup-menu');
 
     totop.style.display = 'none';
 
