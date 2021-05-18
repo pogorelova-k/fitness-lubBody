@@ -29,13 +29,20 @@ const menu = () => {
     // скрол на один высоту первого блока
     window.addEventListener('scroll', () => {
         if (pageYOffset > 700) {
-            // фиксируем меню
-            topMenu.style.cssText = `position: fixed; `;
-            document.body.style.cssText = 'margin-top: 60px';
             // добавляем кнопку top up
             totop.style.display = 'block';
-        } else {
+            // фиксируем меню
+            if (document.documentElement.clientWidth < 768) {
+                topMenu.style.cssText = `position: fixed; `;
+                document.body.style.cssText = 'margin-top: 60px';
+            } else {
+                topMenu.style.cssText = `position: relative; `;
+                document.body.style.cssText = 'margin-top: 0px';
+            }
+        } else {    
             totop.style.display = 'none';
+            topMenu.style.cssText = `position: relative; `;
+            document.body.style.cssText = 'margin-top: 0px';
         }
     });
 
