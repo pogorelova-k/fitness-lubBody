@@ -6,13 +6,15 @@ const validator = () => {
     inputs.forEach(input => {
         input.addEventListener('input', () => {
             const form = input.closest('form'),
-                formBtn = form.querySelector('.form-btn');
+                formBtn = form.querySelector('button');
 
             // Валидация поля Ваше имя
             if (input.getAttribute('name') === 'name') {
                 // отменяется отправка формы, если имя меньше 2 букв
                 if (input.value.length < 2) {
                     formBtn.disabled = true;
+                } else {
+                    formBtn.removeAttribute('disabled');
                 }
 
                 if (input.value.length < 51) {
@@ -38,6 +40,8 @@ const validator = () => {
             if (input.getAttribute('name') === 'phone') {
                 if (input.value.length < 18) {
                     formBtn.disabled = true;
+                } else {
+                    formBtn.removeAttribute('disabled');
                 } 
             }
         });
